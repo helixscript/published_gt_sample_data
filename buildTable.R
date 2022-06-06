@@ -72,3 +72,7 @@ sites <- bind_rows(lapply(system(paste('find', intSiteDataPath, '-name intSites.
 
 write_tsv(sites, 'published_gt_sites.tsv')
 system('gzip published_gt_sites.tsv')
+
+# Vector view.
+o <- group_by(r, Trial, Vector) %>% summarise(publishedSamples = n()) %>% ungroup()
+openxlsx::write.xlsx(o, file = 'trial_vectors.xlsx')
